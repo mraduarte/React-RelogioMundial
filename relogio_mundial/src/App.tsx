@@ -19,19 +19,32 @@ function App() {
     fusoHorarioLocal,
   ]);
 
+  const adicionarFusoHorario = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const novoFuso = e.target.value;
+    if (!fusosHorariosSelecionados.includes(novoFuso)) {
+      setFusosHorariosSelecionados([...fusosHorariosSelecionados, novoFuso]);
+    }
+  };
   console.log(fusoHorarioLocal);
 
   return (
     <div>
       <h1>Relógio Mundial</h1>
-      <select>
+      <select onChange={(e) => adicionarFusoHorario(e)}>
         <option value="" disabled selected>
           Selecione um fuso horário
         </option>
+        {fusosHorarios.map((fuso) => {
+          return (
+            <option key={fuso} value={fuso}>
+              {fuso}
+            </option>
+          );
+        })}
       </select>
       <div>
         {fusosHorariosSelecionados.map((fuso) => (
-          <TimeZoneClock key={fuso} timeZone={fuso}/>
+          <TimeZoneClock key={fuso} timeZone={fuso} />
         ))}
       </div>
     </div>

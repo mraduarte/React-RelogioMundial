@@ -9,7 +9,6 @@ const TimeZoneClock = ({ timeZone }: props) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-
       const date = new Date();
       const timeString = date.toLocaleTimeString("en-US", {
         timeZone,
@@ -20,10 +19,12 @@ const TimeZoneClock = ({ timeZone }: props) => {
 
       setTime(timeString);
     }, 1000);
+
+    return () => clearInterval(intervalId);
   }, [timeZone]);
 
   return (
-    <div>
+    <div className="timezone">
       <h2>{timeZone}</h2>
       <h3>{time}</h3>
     </div>
